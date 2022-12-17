@@ -25,13 +25,13 @@ class Paddle (GameSprite):
         keys = key.get_pressed()
         if keys[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if keys[K_DOWN] and self.rect.y < win_width - 80:
+        if keys[K_DOWN] and self.rect.y < win_height - 150:
             self.rect.y += self.speed
     def update_left(self):
         keys = key.get_pressed()
         if keys[K_w] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if keys[K_s] and self.rect.y < win_width - 80:
+        if keys[K_s] and self.rect.y < win_height - 150:
             self.rect.y += self.speed
 
 #interface
@@ -46,8 +46,8 @@ paddleA_img = "paddle_blue.png"
 paddleB_img = "paddle_red.png"
 ball_img = "tennis_ball.png"
 
-paddleLeft = Paddle (paddleA_img, 20, 200, 30, 150, 150)
-paddleRight = Paddle (paddleB_img, 650, 200, 30, 150, 150)
+paddleLeft = Paddle (paddleA_img, 20, 200, 30, 150, 50)
+paddleRight = Paddle (paddleB_img, 520, 200, 30, 150, 50)
 ball = GameSprite(ball_img, 330, 200, 50, 50, 50)
 
 
@@ -89,12 +89,12 @@ while game:
 
         #if ball flies behind this paddle, display loss condition for player left
         if ball.rect.x < 0:
-            finish = True
+            finish = False
             window.blit(lose1, (200, 200))
 
         #if the ball flies behind this paddle, display loss condition for player right
         if ball.rect.x > win_width:
-            finish = True
+            finish = False
             window.blit(lose2, (200, 200))
 
         paddleLeft.reset()
