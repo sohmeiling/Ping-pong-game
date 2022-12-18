@@ -1,3 +1,5 @@
+# Ping pong game
+
 This is a two-player ping-pong game. 
 
 Control:
