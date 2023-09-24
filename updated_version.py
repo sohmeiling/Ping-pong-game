@@ -41,6 +41,7 @@ BLUE = (200, 255, 255)
 win_width = 600
 win_height = 500
 window = display.set_mode((win_width, win_height))
+display.set_caption("Ping Pong")
 window.fill(BLUE)
 
 # Create a court background
@@ -86,8 +87,11 @@ red_board = font_score.render('RED: ' + str(RED_SCORE), True, (0, 0, 0))
 
 # Randomly determine the initial direction and speed of the ball
 initial_direction = random.choice([-1, 1])  # Randomly choose -1 (left) or 1 (right)
-speed_x = 3
-speed_y = 3
+speed_x = 3 * initial_direction
+speed_y = 3 * initial_direction
+
+# Introducing acceleration of the ball
+acceleration = 0.0005
 
 while game:
     for e in event.get():
@@ -100,8 +104,12 @@ while game:
         paddleLeft.update_left()
         paddleRight.update_right()
 
-        ball.rect.x += speed_x
-        ball.rect.y += speed_y
+        ball.rect.x += speed_x 
+        ball.rect.y += speed_y 
+
+        # Accelerate the ball
+        speed_x += acceleration * speed_x
+        speed_y += acceleration * speed_y
 
         # Score board for both players
         window.blit(blue_board, (10, 10))
