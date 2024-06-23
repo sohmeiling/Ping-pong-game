@@ -78,6 +78,8 @@ font = pygame.font.Font(None, 35)
 lose1 = font.render('BLUE PLAYER LOSE!', True, (180, 0, 0))
 lose2 = font.render('RED PLAYER LOSE!', True, (180, 0, 0))
 
+win_blue = font.render('BLUE PLAYER WIN!', True, (180, 0, 0))
+win_red = font.render('RED PLAYER WIN!', True, (180, 0, 0))
 
 BLUE_SCORE = 0
 RED_SCORE = 0
@@ -145,6 +147,17 @@ while game:
             finish = True
             game_over = True
             window.blit(lose2, (200, 200))
+
+        if BLUE_SCORE >= 11: 
+            finish = True
+            game_over = True
+            window.blit(win_blue, (200, 200))
+
+
+        if RED_SCORE >= 11: 
+            finish = True
+            game_over = True
+            window.blit(win_red, (200, 200))
 
         paddleLeft.reset()
         paddleRight.reset()

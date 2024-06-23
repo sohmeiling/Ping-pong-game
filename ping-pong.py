@@ -74,7 +74,7 @@ FPS = 60
 #fonts
 pygame.font.init()
 font = pygame.font.Font(None, 35)
-lose1 = font.render('BLUE PLAYER LOSE!', True, (180, 0, 0))
+lose1 = font.render('BLUE PLAYER LOSE!', True, (0, 0, 180))
 lose2 = font.render('RED PLAYER LOSE!', True, (180, 0, 0))
 
 
