@@ -23,6 +23,9 @@ BASE_SPEED_PADDLE = 6
 BALL_SPEED_X = 4
 BALL_SPEED_Y = 3
 
+WIN_SCORE = 6
+winner = None
+
 # ---------------------- Sprites ----------------------
 class GameSprite(sprite.Sprite):
     def __init__(self, surf, x, y, speed=0):
@@ -116,6 +119,10 @@ def draw_ui():
     score_text = score_font.render(f"{score1}   :   {score2}", True, LINES)
     window.blit(score_text, (win_width//2 - score_text.get_width()//2, 16))
 
+    if winner is not None:
+        win_text = hint_font.render(f"Player {winner} wins! Press R to reset", True, LINES)
+        window.blit(win_text, (win_width//2 - win_text.get_width()//2, 60))
+
 # ---------------------- Helpers ----------------------
 def handle_paddle_collisions():
     global ball
@@ -137,13 +144,18 @@ def handle_paddle_collisions():
         ball.vy = max(-7, min(7, ball.vy + 4 * offset))
 
 def handle_scoring():
-    global score1, score2
+    global score1, score2, winner, paused
     if ball.rect.left <= 0:
         score2 += 1
         ball.center_serve(direction=-1)
     if ball.rect.right >= win_width:
         score1 += 1
         ball.center_serve(direction=1)
+
+    # win condition
+    if score1 >= WIN_SCORE or score2 >= WIN_SCORE:
+        winner = 1 if score1 >= WIN_SCORE else 2
+        paused = True  # stop play
 
 # ---------------------- Main Loop ----------------------
 game = True
@@ -158,6 +170,7 @@ while game:
                 paused = not paused
             if e.key == K_r:
                 score1 = score2 = 0
+                winner = None
                 racket1.rect.centery = win_height // 2
                 racket2.rect.centery = win_height // 2
                 ball.center_serve(direction=1)
