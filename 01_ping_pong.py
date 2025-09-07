@@ -79,8 +79,12 @@ class Ball(GameSprite):
         self.rect.x += self.vx
         self.rect.y += self.vy
         # bounce on top/bottom walls
-        if self.rect.top <= 0 or self.rect.bottom >= win_height:
-            self.vy *= -1
+        if self.rect.top <= 0:
+            self.rect.top = 0
+            self.vy = abs(self.vy)
+        elif self.rect.bottom >= win_height:
+            self.rect.bottom = win_height
+            self.vy = -abs(self.vy)
 
 # ---------------------- Objects ----------------------
 # paddles as thin rectangles
